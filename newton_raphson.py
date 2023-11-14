@@ -17,8 +17,8 @@ def newton_raphson():
     # func = lambdify(x, funcion, "numpy")
     # deriv = lambdify(x, derivada, "numpy")
 
-    func = lambda x: x * 3 + 4 * (x**2) - 10
-    deriv = lambda x: 3 * (x**2) + 8 * x
+    func = lambda x: x**3+4*(x**2)-10
+    deriv = lambda x: 3*(x**2) + 8*x
 
     # Solicitar otros valores necesarios para Newton-Raphson
     p0 = float(input("Ingrese el valor inicial p0: "))
