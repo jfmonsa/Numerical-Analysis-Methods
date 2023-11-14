@@ -1,23 +1,24 @@
 from typing import Callable
-#from simpy import Symbol, diff, lambdify, sympify  # symbols
+
+# from simpy import Symbol, diff, lambdify, sympify  # symbols
 
 
 def newton_raphson():
-    #func = input("Ingrese la función en términos de 'x': ")
+    # func = input("Ingrese la función en términos de 'x': ")
 
     # Convertir la entrada del usuario a una expresión simbólica
-    #x = Symbol("x")
-    #funcion = sympify(func)
+    # x = Symbol("x")
+    # funcion = sympify(func)
 
     # Calcular la derivada
-    #derivada = diff(funcion, x)
+    # derivada = diff(funcion, x)
 
     # Convertir la expresión simbólica a una función lambda
-    #func = lambdify(x, funcion, "numpy")
-    #deriv = lambdify(x, derivada, "numpy")
+    # func = lambdify(x, funcion, "numpy")
+    # deriv = lambdify(x, derivada, "numpy")
 
-    func  = lambda x: x*3 + 4*(x**2) - 10
-    deriv = lambda x: 3*(x**2) + 8*x
+    func = lambda x: x * 3 + 4 * (x**2) - 10
+    deriv = lambda x: 3 * (x**2) + 8 * x
 
     # Solicitar otros valores necesarios para Newton-Raphson
     p0 = float(input("Ingrese el valor inicial p0: "))
@@ -65,7 +66,7 @@ def aux_newton_raphson(
             or abs(func(p)) < tol
             or (p != 0 and abs((p - p0) / p) < tol)
         ):
-            #TODO: imprimir cual fue la tolerancia
+            # TODO: imprimir cual fue la tolerancia
             print(f"Procedure was succesful root  is equal to x = {p}")
             return p
         else:
@@ -79,7 +80,7 @@ def aux_newton_raphson(
 if __name__ == "__main__":
     newton_raphson()
 
-#Numerical Analysis book: https://faculty.ksu.edu.sa/sites/default/files/numerical_analysis_9th.pdf
+# Numerical Analysis book: https://faculty.ksu.edu.sa/sites/default/files/numerical_analysis_9th.pdf
 # TODO: revisar https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.newton.html
 # TODO: Pomer comentarios en ingles, porque si xddddd
 # TODO: imprimir la grafica y la raíz calculada con matplotlib https://www.youtube.com/watch?v=T3q0hZjXG3g
