@@ -56,12 +56,18 @@ def aux_newton_raphson(
     while i <= max_iter:
         # compute p
         p = p0 - func(p0) / deriv(p0)
-        if p == 0 or abs(p - p0) < tol:
+        # Stop conditions according to book Numerical Analysis (p. 68)
+        if (
+            abs(p - p0) < tol
+            or abs(func(p)) < tol
+            or (p != 0 and abs((p - p0) / p) < tol)
+        ):
+            #TODO: imprimir cual fue la tolerancia
             print(f"Procedure was succesful root  is equal to x = {p}")
             return p
         else:
-            i += 1
             p0 = p
+            i += 1
     else:
         raise Exception(f"No convergence, N iterations {i}")
 
@@ -69,3 +75,13 @@ def aux_newton_raphson(
 # tests
 if __name__ == "__main__":
     newton_raphson()
+
+#Numerical Analysis book: https://faculty.ksu.edu.sa/sites/default/files/numerical_analysis_9th.pdf
+# TODO: revisar https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.newton.html
+# TODO: Pomer comentarios en ingles, porque si xddddd
+# TODO: imprimir la grafica y la raíz calculada con matplotlib https://www.youtube.com/watch?v=T3q0hZjXG3g
+"""
+Enlaces para el informe:
+* https://pythonnumericalmethods.berkeley.edu/notebooks/chapter19.04-Newton-Raphson-Method.html
+
+"""
