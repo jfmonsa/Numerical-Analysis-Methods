@@ -1,6 +1,20 @@
 from typing import Callable
-
+import matplotlib.pyplot as plt
+import numpy as np
 # from simpy import Symbol, diff, lambdify, sympify  # symbols
+
+def graph(func,root,x_min,x_max):
+    xvalues = np.linspace(x_min,x_max,100)
+    yvalues = func(xvalues)
+
+    plt.plot(xvalues,yvalues)
+    plt.plot(root,func(root),marker=".")
+
+    #plt.axhline(y=func(root), color='red', linestyle='--')
+    plt.axhline(0, color="black")
+    plt.axvline(0, color="black")
+    plt.axvline(x=root, color='red', linestyle='--')
+    plt.show()
 
 
 def newton_raphson():
@@ -26,6 +40,7 @@ def newton_raphson():
     # max_iter = int(input("Ingrese el número máximo de iteraciones: "))
 
     root = aux_newton_raphson(func, deriv, p0)
+    graph(func,root,round(root)-10,round(root)+10)
 
 
 def aux_newton_raphson(
@@ -33,7 +48,7 @@ def aux_newton_raphson(
     deriv: Callable,
     p0: float | int,
     tol: float | int = 1e-6,
-    max_iter: float | int = 1000,
+    max_iter: float | int = 100,
 ) -> float | None:
     """
     Aplica el método de Newton-Raphson para encontrar la raíz de una función "func".
