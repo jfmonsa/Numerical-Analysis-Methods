@@ -82,7 +82,7 @@ def aux_newton_raphson(
             or (p != 0 and abs((p - p0) / p) < tol)
         ):
             # TODO: imprimir cual fue la tolerancia
-            print(f"Procedure was succesful root  is equal to x = {p}")
+            print(f"Procedure was succesful, root  is equal to x = {p}")
             return p
         else:
             p0 = p
