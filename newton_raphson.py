@@ -1,38 +1,18 @@
 from typing import Callable
 import matplotlib.pyplot as plt
 import numpy as np
-# from simpy import Symbol, diff, lambdify, sympify  # symbols
-
-def graph(func,root,x_min,x_max):
-    xvalues = np.linspace(x_min,x_max,100)
-    yvalues = func(xvalues)
-
-    plt.plot(xvalues,yvalues)
-    plt.plot(root,func(root),marker=".")
-
-    #plt.axhline(y=func(root), color='red', linestyle='--')
-    plt.axhline(0, color="black")
-    plt.axvline(0, color="black")
-    plt.axvline(x=root, color='red', linestyle='--')
-    plt.show()
-
+from sympy import symbols, diff, lambdify
 
 def newton_raphson():
-    # func = input("Ingrese la función en términos de 'x': ")
 
-    # Convertir la entrada del usuario a una expresión simbólica
-    # x = Symbol("x")
-    # funcion = sympify(func)
+    x = symbols('x')
+    func = lambda x: x**3+4*(x**2)-10
 
     # Calcular la derivada
-    # derivada = diff(funcion, x)
+    deriv = diff(func(x), x)
 
-    # Convertir la expresión simbólica a una función lambda
-    # func = lambdify(x, funcion, "numpy")
-    # deriv = lambdify(x, derivada, "numpy")
-
-    func = lambda x: x**3+4*(x**2)-10
-    deriv = lambda x: 3*(x**2) + 8*x
+    # Crear una nueva función lambda para la derivada
+    deriv = lambdify(x, deriv)
 
     # Solicitar otros valores necesarios para Newton-Raphson
     p0 = float(input("Ingrese el valor inicial p0: "))
@@ -40,7 +20,7 @@ def newton_raphson():
     # max_iter = int(input("Ingrese el número máximo de iteraciones: "))
 
     root = aux_newton_raphson(func, deriv, p0)
-    graph(func,root,round(root)-10,round(root)+10)
+    graph(func,root,round(root)-1,round(root)+1)
 
 
 def aux_newton_raphson(
@@ -82,7 +62,7 @@ def aux_newton_raphson(
             or (p != 0 and abs((p - p0) / p) < tol)
         ):
             # TODO: imprimir cual fue la tolerancia
-            print(f"Procedure was succesful, root  is equal to x = {p}")
+            print(f"Procedure was successful, root  is equal to x = {p}, iterations: {i}")
             return p
         else:
             p0 = p
@@ -90,6 +70,18 @@ def aux_newton_raphson(
     else:
         raise Exception(f"No convergence, N iterations {i}")
 
+def graph(func,root,x_min,x_max):
+    xvalues = np.linspace(x_min,x_max,100)
+    yvalues = func(xvalues)
+
+    plt.plot(xvalues,yvalues)
+    plt.plot(root,func(root),marker=".")
+
+    #plt.axhline(y=func(root), color='red', linestyle='--')
+    plt.axhline(0, color="black")
+    plt.axvline(0, color="black")
+    plt.axvline(x=root, color='red', linestyle='--')
+    plt.show()
 
 # tests
 if __name__ == "__main__":
