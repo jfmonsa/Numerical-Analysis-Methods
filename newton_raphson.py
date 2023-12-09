@@ -62,7 +62,7 @@ def aux_newton_raphson(
             or (p != 0 and abs((p - p0) / p) < tol)
         ):
             # TODO: imprimir cual fue la tolerancia
-            print(f"Procedure was successful, root  is equal to x = {p}, iterations: {i}")
+            print(f"Procedure was successful, root  is equal to x = {p}, iterations: {i}, tolerance: {tol}, error: {abs(p - p0)}")
             return p
         else:
             p0 = p
@@ -76,6 +76,13 @@ def graph(func,root,x_min,x_max):
 
     plt.plot(xvalues,yvalues)
     plt.plot(root,func(root),marker=".")
+    plt.legend("Newthon raphson method")
+    x=symbols("x")
+    func_l = str(func(x))
+    pol_str = f"Newthon raphson method: given polynomial \n${func_l}$"
+    plt.text(x_max-1.8, x_max+5.6, pol_str, fontsize=12, verticalalignment='top',horizontalalignment="left")
+    plt.title(f"Newthon raphson method")
+    plt.annotate(f"Apr root: ({root}, {func(root)})", (root+0.05,func(root)+0.2))
 
     #plt.axhline(y=func(root), color='red', linestyle='--')
     plt.axhline(0, color="black")
